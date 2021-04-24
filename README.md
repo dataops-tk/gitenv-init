@@ -83,3 +83,38 @@ export SSH_KEYNAME=meltano-containers
 #   '~/.ssh/meltano-containers-ssh.pub'
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/$SSH_KEYNAME-ssh -C "SSH Key for $SSH_KEYNAME" -q -N ""
 ```
+
+## Wrap in your own Dockerfile
+
+If you are building a new image, you can wrap these tools as in the following example:
+
+`Dockerfile`
+
+```Dockerfile
+FROM meltano/meltano
+
+WORKDIR /
+
+# Install the latest 'gitenv-init' scripts
+ENV GITENV_FILE_ROOT=https://raw.githubusercontent.com/dataops-tk/gitenv-init/main
+RUN wget ${GITENV_FILE_ROOT}/gitenv-init.sh
+RUN wget ${GITENV_FILE_ROOT}/gitenv-bootstrap.sh
+RUN chmod +x /gitenv-bootstrap.sh
+RUN chmod +x /gitenv-init.sh
+ENTRYPOINT [ "/gitenv-bootstrap.sh" ]
+
+# Meltano-specific steps here:
+
+# Install the Meltano boostrap script
+COPY ./bootstrap.sh /bootstrap.sh
+RUN chmod +x /bootstrap.sh
+
+WORKDIR /project
+
+# Set our bootstrap script to run within gitenv-bootstrap.sh
+ENV BASE_BOOTSTRAP=/bootstrap.sh
+CMD ["ui"]
+```
+
+Note that the `gitenv-bootstrap.sh` script will call any provided custom
+bootstrap script via the `BASE_BOOTSTRAP` environment variable.
