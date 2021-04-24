@@ -96,11 +96,11 @@ FROM meltano/meltano
 WORKDIR /
 
 # Install the latest 'gitenv-init' scripts
-ENV GITENV_FILE_ROOT=https://raw.githubusercontent.com/dataops-tk/gitenv-init/main
-RUN wget ${GITENV_FILE_ROOT}/gitenv-init.sh
-RUN wget ${GITENV_FILE_ROOT}/gitenv-bootstrap.sh
-RUN chmod +x /gitenv-bootstrap.sh
-RUN chmod +x /gitenv-init.sh
+RUN GITENV_REPO_ROOT=https://raw.githubusercontent.com/dataops-tk/gitenv-init/main && \
+    wget ${GITENV_REPO_ROOT}/gitenv-init.sh && \
+    wget ${GITENV_REPO_ROOT}/gitenv-bootstrap.sh && \
+    chmod +x /gitenv-bootstrap.sh && \
+    chmod +x /gitenv-init.sh
 ENTRYPOINT [ "/gitenv-bootstrap.sh" ]
 
 # Meltano-specific steps here:
