@@ -72,7 +72,7 @@ git push
 
 ### Create an SSH keypair for your containers
 
-- [ ] TODO: Note that SSH keypair support is not yet enabled automatically by the script. That said, you can probably get it working if you already know what you are doing. (Same rules apply as other environments.)
+- [ ] TODO: Note that SSH keypair support is [not yet](https://github.com/dataops-tk/gitenv-init/issues/1) enabled automatically by the script. That said, you can probably get it working if you already know what you are doing. (Same rules apply as other environments.)
 
 To generate an SSH key, run this locally:
 
