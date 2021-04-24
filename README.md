@@ -5,10 +5,13 @@ Designed and optimized for dockerized scenarios.
 
 - [gitenv-init.sh](gitenv-init.sh)
 
-## Other tools here:
+## Other tools used here
 
 - `Dockerfile` - Wraps another docker image without changing the original image.
 - `bootstrap.sh` - Works with the provided Dockerfile, or as a starting point to copy into your own Docker images.
+- `pre-commit` - The widely loved [`pre-commit`](https://pre-commit.com/) tool is automatically
+  installed unless you specify `GIT_NO_PRECOMMIT`. This means that if your repo has a
+  `.pre-commit-config.yaml` file, it will be applied automatically.
 
 ## Example usage
 
